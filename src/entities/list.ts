@@ -1,4 +1,4 @@
-import { BelongsTo, Column, DataType, HasMany, IsUUID, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, IsUUID, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
 import { User } from "./User";
 import { Board } from './Board';
 import { Card } from './Card';
@@ -19,6 +19,20 @@ export class List extends Model {
     })
     name:string;
 
+    @ForeignKey(() => User)
+    @Column({
+        field: 'user_id',
+        type: DataType.UUID,
+    })
+    authorId!: string;
+    
+    @ForeignKey(() => Board)
+    @Column({
+        field: 'board_id',
+        type: DataType.UUID,
+    })
+    boardId!: string;
+    
     @BelongsTo(()=>User,{
         onDelete:'RESTRICT',
         onUpdate:'CASCADE'

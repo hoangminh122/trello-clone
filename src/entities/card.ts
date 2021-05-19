@@ -19,6 +19,13 @@ export class Card extends Model {
     })
     name:string;
 
+    @ForeignKey(() => User)
+    @Column({
+        field: 'user_id',
+        type: DataType.UUID,
+    })
+    authorId!: string;
+    
     @Column({
         type:DataType.STRING,
     })
