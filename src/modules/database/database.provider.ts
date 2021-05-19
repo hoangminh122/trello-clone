@@ -3,6 +3,11 @@ import * as cls from 'cls-hooked';
 import { Sequelize } from 'sequelize-typescript';
 import { Op } from 'sequelize';
 import { databaseConfig } from 'src/shared/config/database';
+import { User } from 'src/entities/User';
+import { Board } from '../../entities/Board';
+import { Card } from '../../entities/Card';
+import { List } from '../../entities/List';
+import { Comment } from '../../entities/Comment';
 
 const namespace = cls.createNamespace('ENROLMENT_APPLICANTS_SERVICE');
 
@@ -61,6 +66,11 @@ export const databaseProvider = {
 
     const sequelize = new Sequelize({ ...config, operatorsAliases });
     sequelize.addModels([
+      User,
+      Board,
+      Card,
+      List,
+      Comment,
     ]);
     return sequelize.sync({ force: false });
   },

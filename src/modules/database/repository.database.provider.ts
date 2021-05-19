@@ -1,4 +1,4 @@
-import { User } from "src/entities/user";
+import { User } from "src/entities/User";
 
 export const userRepository = {
     provide:'userRepository',
