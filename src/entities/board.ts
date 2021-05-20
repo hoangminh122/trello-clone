@@ -23,6 +23,12 @@ export class Board extends Model {
         type: DataType.UUID,
     })
     authorId!: string;
+
+    @Column({
+        allowNull:false,
+        type:DataType.INTEGER
+    })
+    order:number;
     
     @HasMany(()=> List,{
         onDelete:'RESTRICT',

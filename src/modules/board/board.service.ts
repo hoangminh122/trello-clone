@@ -2,8 +2,10 @@ import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { UUIDV4 } from "sequelize";
 import { Board } from "src/entities/Board";
+import { paginate } from "src/shared/paginate/paginate";
 import { UnitOfWork } from "../database/UnitOfWork";
 import { CreateBoardDto } from "./dto/board.dto";
+import { FilterBoardDto } from "./dto/filter-board.input";
 
 
 
@@ -47,13 +49,20 @@ export class BoardService {
           return true;
     }
 
-    async getAll()
+    async getAll(boardQuery: FilterBoardDto )
     {
-        return await this.boardModel.findAll({
-            order: [
-            ['order', 'DESC'],
-        ]
-        });
+        // var result =  await this.boardModel.findAll({
+        //     order: [
+        //     ['order', 'DESC'],
+        // ]
+        // });
+        const filter = {};
+        const options = { page: boardQuery.page, limit: boardQuery.limit };
+        const searchOptions = {
+          where: filter,
+        };
+        
+        return paginate(this.boardModel, options,searchOptions);
     }
 
     async deleteBoard(id: string) {

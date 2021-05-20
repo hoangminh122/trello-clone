@@ -1,8 +1,9 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
 import { now } from "sequelize/types/lib/utils";
+import { PaginationModel } from './../../../shared/paginate/pagination-model';
 
-export class CreateBoardDto {
+export class CreateBoardDto extends PaginationModel{
     @ApiProperty()
     @IsString()
     @IsOptional()
@@ -10,6 +11,9 @@ export class CreateBoardDto {
 
     @ApiProperty()
     name:string;
+
+    @ApiProperty()
+    order:number;
 
     @ApiPropertyOptional()
     isStar:boolean;

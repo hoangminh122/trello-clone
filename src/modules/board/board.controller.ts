@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { BoardService } from "./board.service";
 import { CreateBoardDto } from "./dto/board.dto";
+import { FilterBoardDto } from "./dto/filter-board.input";
 
 @Controller('board')
 @ApiTags('board')
@@ -22,9 +23,9 @@ export class BoardController {
     }
 
     @Get('/')
-    async getAll()
+    async getAll(@Query() query: FilterBoardDto)
     {
-        return await this.boardService.getAll();
+        return await this.boardService.getAll(query);
     }
 
     @Delete(':id')
