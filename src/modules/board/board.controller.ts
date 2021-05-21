@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { BoardService } from "./board.service";
-import { CreateBoardDto } from "./dto/board.dto";
+import { CreateBoardDto } from "./dto/board-create.input";
 import { FilterBoardDto } from "./dto/filter-board.input";
 
 @Controller('board')

@@ -8,6 +8,7 @@ import { Board } from '../../entities/Board';
 import { Card } from '../../entities/Card';
 import { List } from '../../entities/List';
 import { Comment } from '../../entities/Comment';
+import { MemberBoard } from 'src/entities/MemberBoard';
 
 const namespace = cls.createNamespace('ENROLMENT_APPLICANTS_SERVICE');
 
@@ -67,11 +68,12 @@ export const databaseProvider = {
     const sequelize = new Sequelize({ ...config, operatorsAliases });
     sequelize.addModels([
       User,
+      MemberBoard,
       Board,
       Card,
       List,
       Comment,
     ]);
-    return sequelize.sync({ force: false });
+    return sequelize.sync({ force: true });
   },
 };

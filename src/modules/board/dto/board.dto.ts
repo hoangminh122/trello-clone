@@ -3,7 +3,7 @@ import { IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
 import { now } from "sequelize/types/lib/utils";
 import { PaginationModel } from './../../../shared/paginate/pagination-model';
 
-export class CreateBoardDto extends PaginationModel{
+export class BoardDto extends PaginationModel{
     @ApiProperty()
     @IsString()
     @IsOptional()
@@ -12,11 +12,15 @@ export class CreateBoardDto extends PaginationModel{
     @ApiProperty()
     name:string;
 
-    @ApiProperty()
-    order:number;
+    // @ApiProperty()
+    // order:number;
 
     @ApiPropertyOptional()
     isStar:boolean;
+
+    @ApiPropertyOptional()
+    private:string;
+
 
     @ApiPropertyOptional()
     createdDate: Date;

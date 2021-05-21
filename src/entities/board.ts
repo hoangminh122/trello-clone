@@ -1,5 +1,6 @@
 import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, IsUUID, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
 import { User } from 'src/entities/User';
+import { ActionPaymentEnum } from "src/shared/enum/access-modifier.enum";
 import { List } from './List';
 
 @Table({tableName:'board',timestamps:false})
@@ -17,6 +18,18 @@ export class Board extends Model {
     })
     name:string;
 
+    @Column({
+        type:DataType.STRING,
+    })
+    bgUrl:string;
+
+    //level : private,public,...
+    @Column({
+        type:DataType.STRING,
+        defaultValue:ActionPaymentEnum.PRIVATE
+    })
+    visibility:string;
+
     @ForeignKey(() => User)
     @Column({
         field: 'user_id',
@@ -25,8 +38,9 @@ export class Board extends Model {
     authorId!: string;
 
     @Column({
-        allowNull:false,
-        type:DataType.INTEGER
+        //allowNull:false,
+        type:DataType.INTEGER,
+        defaultValue: 0
     })
     order:number;
     

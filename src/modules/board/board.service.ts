@@ -4,7 +4,7 @@ import { UUIDV4 } from "sequelize";
 import { Board } from "src/entities/Board";
 import { paginate } from "src/shared/paginate/paginate";
 import { UnitOfWork } from "../database/UnitOfWork";
-import { CreateBoardDto } from "./dto/board.dto";
+import { CreateBoardDto } from "./dto/board-create.input";
 import { FilterBoardDto } from "./dto/filter-board.input";
 
 
