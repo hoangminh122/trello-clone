@@ -62,4 +62,11 @@ export class Board extends Model {
     })
     author : User;
 
+    @Column({
+        field: 'updated_at', 
+        allowNull: true, 
+        type: DataType.DATE(6) 
+    })
+    loginLast?: Date;
+
 }

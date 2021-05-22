@@ -1,6 +1,6 @@
 export enum ActionPaymentEnum {
     PRIVATE = 'PRIVATE',
-    PUBLIC = 'PAY',
+    PUBLIC = 'PUBLIC',
     WORKSPACE = 'WORKSPACE',
 };
   

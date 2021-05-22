@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UsePipes, ValidationPipe } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { BoardService } from "./board.service";
 import { CreateBoardDto } from "./dto/board-create.input";
@@ -22,9 +22,11 @@ export class BoardController {
         return await this.boardService.updateBoard(boardDto,id);
     }
 
+   // @UsePipes(new ValidationPipe({ transform: true }))
     @Get('/')
     async getAll(@Query() query: FilterBoardDto)
     {
+        console.log("asdasd" + query);
         return await this.boardService.getAll(query);
     }
 

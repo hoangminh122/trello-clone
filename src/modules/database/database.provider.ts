@@ -74,6 +74,6 @@ export const databaseProvider = {
       List,
       Comment,
     ]);
-    return sequelize.sync({ force: true });
+    return sequelize.sync({ force: false });
   },
 };

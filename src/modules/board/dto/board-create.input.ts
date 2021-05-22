@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { IsBoolean, IsDateString, IsOptional, IsString } from "class-validator";
+import { ActionPaymentEnum } from "src/shared/enum/access-modifier.enum";
 
 
 export class CreateBoardDto {
@@ -20,7 +21,8 @@ export class CreateBoardDto {
     @ApiPropertyOptional()
     @IsOptional()
     @IsString()
-    private:string;
+    visibility:ActionPaymentEnum;
+    
 
     @ApiPropertyOptional()
     @IsOptional()
