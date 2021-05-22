@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Module } from "@nestjs/common/decorators";
 import { DatabaseModule } from "../database/database.module";
 import { boardRepository } from "../database/repository.database.provider";
 import { BoardController } from "./board.controller";

@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Module } from "@nestjs/common/decorators";
 import { DatabaseModule } from "../database/database.module";
 import {cardRepository } from "../database/repository.database.provider";
 import { CardController } from "./card.controller";

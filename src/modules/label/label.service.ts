@@ -1,44 +1,44 @@
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { Card } from "src/entities/Card";
 import { LooseObject } from "src/shared/interfaces/loose-object.interface";
 import { paginate } from "src/shared/paginate/paginate";
 import { UnitOfWork } from "../database/UnitOfWork";
-import { CreateCardDto } from "./dto/card-create.input";
-import { FilterCardDto } from "./dto/filter-card.input";
+import { CreateLabelDto } from "./dto/label-create.input";
+import { FilterLabelDto } from "./dto/filter-label.input";
+import { Label } from "src/entities/label";
 
 @Injectable()
-export class CardService {
+export class LabelService {
     constructor(
         @Inject(UnitOfWork)
         private readonly unitOfWork: UnitOfWork,
-        @InjectModel(Card)
-        private cardModel: typeof Card
+        @InjectModel(Label)
+        private labelModel: typeof Label
     )
     {  }
 
-    async addCard(cardDto:CreateCardDto)
+    async addLabel(labelDto:CreateLabelDto)
     {
-        return await (await this.cardModel.create(cardDto));
+        return await (await this.labelModel.create(labelDto));
     }
 
-    async updateCard(cardDto:CreateCardDto,id)
+    async updateLabel(labelDto:CreateLabelDto,id)
     {
          await this.unitOfWork.scope(async transaction => {
-            const card = await this.cardModel.findOne({
+            const label = await this.labelModel.findOne({
               where: { id },
               transaction
             });
-            if (!card) {
+            if (!label) {
               throw new HttpException(
                 {
                   statusCode: HttpStatus.BAD_REQUEST,
-                  message: ' Card not exists',
+                  message: ' Label not exists',
                 },
                 HttpStatus.BAD_REQUEST,
               );
             }
-            await this.cardModel.update(cardDto, {
+            await this.labelModel.update(labelDto, {
               where: { id },
               transaction,
             });
@@ -47,25 +47,25 @@ export class CardService {
           return true;
     }
 
-    async getAll(cardQuery: FilterCardDto )
+    async getAll(labelQuery: FilterLabelDto )
     {
         var filter :LooseObject = {};
-        if(cardQuery.name)
+        if(labelQuery.name)
         {
-          filter.name = cardQuery.name;
+          filter.name = labelQuery.name;
         }
        
-        const options = { page: cardQuery.page, limit: cardQuery.limit };
+        const options = { page: labelQuery.page, limit: labelQuery.limit };
         const searchOptions = {
           where: filter,
         };
         
-        return paginate(this.cardModel, options,searchOptions);
+        return paginate(this.labelModel, options,searchOptions);
     }
 
-    async deleteCard(id: string) {
+    async deleteLabel(id: string) {
       return this.unitOfWork.scope(async transaction => {
-        await this.cardModel.destroy({ where: { id }, transaction });
+        await this.labelModel.destroy({ where: { id }, transaction });
         return true;
       });
     }

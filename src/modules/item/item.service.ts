@@ -1,44 +1,44 @@
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { Card } from "src/entities/Card";
 import { LooseObject } from "src/shared/interfaces/loose-object.interface";
 import { paginate } from "src/shared/paginate/paginate";
 import { UnitOfWork } from "../database/UnitOfWork";
-import { CreateCardDto } from "./dto/card-create.input";
-import { FilterCardDto } from "./dto/filter-card.input";
+import { CreateItemDto } from "./dto/item-create.input";
+import { Item } from '../../entities/item';
+import { FilterItemDto } from "./dto/filter-item.input";
 
 @Injectable()
-export class CardService {
+export class ItemService {
     constructor(
         @Inject(UnitOfWork)
         private readonly unitOfWork: UnitOfWork,
-        @InjectModel(Card)
-        private cardModel: typeof Card
+        @InjectModel(Item)
+        private itemModel: typeof Item
     )
     {  }
 
-    async addCard(cardDto:CreateCardDto)
+    async addItem(itemDto:CreateItemDto)
     {
-        return await (await this.cardModel.create(cardDto));
+        return await (await this.itemModel.create(itemDto));
     }
 
-    async updateCard(cardDto:CreateCardDto,id)
+    async updateItem(itemDto:CreateItemDto,id)
     {
          await this.unitOfWork.scope(async transaction => {
-            const card = await this.cardModel.findOne({
+            const item = await this.itemModel.findOne({
               where: { id },
               transaction
             });
-            if (!card) {
+            if (!item) {
               throw new HttpException(
                 {
                   statusCode: HttpStatus.BAD_REQUEST,
-                  message: ' Card not exists',
+                  message: ' Label not exists',
                 },
                 HttpStatus.BAD_REQUEST,
               );
             }
-            await this.cardModel.update(cardDto, {
+            await this.itemModel.update(itemDto, {
               where: { id },
               transaction,
             });
@@ -47,25 +47,25 @@ export class CardService {
           return true;
     }
 
-    async getAll(cardQuery: FilterCardDto )
+    async getAll(itemQuery: FilterItemDto )
     {
         var filter :LooseObject = {};
-        if(cardQuery.name)
+        if(itemQuery.name)
         {
-          filter.name = cardQuery.name;
+          filter.name = itemQuery.name;
         }
        
-        const options = { page: cardQuery.page, limit: cardQuery.limit };
+        const options = { page: itemQuery.page, limit: itemQuery.limit };
         const searchOptions = {
           where: filter,
         };
         
-        return paginate(this.cardModel, options,searchOptions);
+        return paginate(this.itemModel, options,searchOptions);
     }
 
-    async deleteCard(id: string) {
+    async deleteItem(id: string) {
       return this.unitOfWork.scope(async transaction => {
-        await this.cardModel.destroy({ where: { id }, transaction });
+        await this.itemModel.destroy({ where: { id }, transaction });
         return true;
       });
     }
