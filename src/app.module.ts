@@ -10,6 +10,7 @@ import { DatabaseModule } from './modules/database/database.module';
 import { ItemModule } from './modules/item/item.module';
 import { LabelModule } from './modules/label/label.module';
 import { ListCardModule } from './modules/list-card/list.module';
+import { MemberCardModule } from './modules/member-card/member-card.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ListCardModule } from './modules/list-card/list.module';
     LabelModule,
     ItemModule,
     ChecklistModule,
+    MemberCardModule,
     ServeStaticModule.forRoot({
       rootPath:join(__dirname,'..','uploads')
     })

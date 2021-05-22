@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, UsePipes, Valid
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { CardService } from "./card.service";
 import { CreateCardDto } from "./dto/card-create.input";
+import { UpdateCardDto } from "./dto/card-update.input";
 import { FilterCardDto } from "./dto/filter-card.input";
 
 @Controller('card')
@@ -19,7 +20,7 @@ export class CardController {
 
     @Put(':id')
     @ApiOperation({ summary: 'Update card' })
-    async updateCard(@Body() cardDto: CreateCardDto,@Query('id') id:string){
+    async updateCard(@Body() cardDto: UpdateCardDto,@Query('id') id:string){
         return await this.cardService.updateCard(cardDto,id);
     }
 

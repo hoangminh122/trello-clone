@@ -1,8 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
-import { now } from "sequelize/types/lib/utils";
-import { PaginationModel } from '../../../shared/paginate/pagination-model';
-
+import { IsUUID } from "class-validator";
 export class CreateCardDto{
 
     @ApiProperty()

@@ -3,6 +3,8 @@ import { Card } from "src/entities/Card";
 import { Checklist } from "src/entities/checklist";
 import { Label } from "src/entities/label";
 import { List } from "src/entities/List";
+import { MemberBoard } from "src/entities/MemberBoard";
+import { MemberCard } from "src/entities/MemberCard";
 import { User } from "src/entities/User";
 import { Item } from './../../entities/item';
 
@@ -39,6 +41,16 @@ export const itemRepository = {
 export const checklistRepository = {
     provide:'ChecklistRepository',
     useValue:Checklist
+}
+
+export const memberBoardRepository = {
+    provide:'MemberBoardRepository',
+    useValue:MemberBoard
+}
+
+export const memberCardRepository = {
+    provide:'MemberCardRepository',
+    useValue:MemberCard
 }
 
 
