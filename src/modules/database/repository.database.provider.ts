@@ -1,6 +1,7 @@
 import { Board } from "src/entities/Board";
 import { Card } from "src/entities/Card";
 import { Checklist } from "src/entities/checklist";
+import { Files } from "src/entities/file";
 import { Label } from "src/entities/label";
 import { List } from "src/entities/List";
 import { MemberBoard } from "src/entities/MemberBoard";
@@ -51,6 +52,11 @@ export const memberBoardRepository = {
 export const memberCardRepository = {
     provide:'MemberCardRepository',
     useValue:MemberCard
+}
+
+export const filesRepository = {
+    provide:'FilesRepository',
+    useValue:Files
 }
 
 
