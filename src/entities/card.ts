@@ -19,6 +19,11 @@ export class Card extends Model {
     })
     name:string;
 
+    @Column({
+        type:DataType.TEXT,
+    })
+    description:string;
+
     @ForeignKey(() => User)
     @Column({
         field: 'user_id',
@@ -27,9 +32,14 @@ export class Card extends Model {
     authorId!: string;
     
     @Column({
-        type:DataType.STRING,
+        type:DataType.DATE,
     })
-    description :string;
+    startDate :Date;
+
+    @Column({
+        type:DataType.DATE,
+    })
+    dueDate :Date;
 
     @BelongsTo(()=>User,{
         onDelete:'RESTRICT',
@@ -49,5 +59,11 @@ export class Card extends Model {
         onUpdate:'CASCADE'
     })
     comments: Comment[];
+
+    @HasMany(()=> Comment,{
+        onDelete:'RESTRICT',
+        onUpdate:'CASCADE'
+    })
+    memberJoins:User[];
 
 }

@@ -14,13 +14,13 @@ export class ListCardController {
     { }
 
     @Post('')
-    async createBoard(@Body() listCardDto: CreateListCardDto){
+    async createListCard(@Body() listCardDto: CreateListCardDto){
        return await this.listCardService.addListCard(listCardDto);
     }
 
     @Put(':id')
     @ApiOperation({ summary: 'Update list card' })
-    async updateBoard(@Body() listCardDto: CreateListCardDto,@Query('id') id:string){
+    async updateListCard(@Body() listCardDto: CreateListCardDto,@Query('id') id:string){
         return await this.listCardService.updateListCard(listCardDto,id);
     }
 

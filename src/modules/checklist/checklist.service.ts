@@ -1,45 +1,45 @@
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { Card } from "src/entities/Card";
-import { List } from "src/entities/List";
 import { LooseObject } from "src/shared/interfaces/loose-object.interface";
 import { paginate } from "src/shared/paginate/paginate";
 import { UnitOfWork } from "../database/UnitOfWork";
-import { FilterListDto } from "./dto/filter-list-card.input";
-import { CreateListCardDto } from "./dto/list-card-create.input";
+import { Checklist } from "src/entities/checklist";
+import { CreateChecklistDto } from "./dto/checklist-create.input";
+import { FilterChecklistDto } from "./dto/filter-checklist.input";
+import { Item } from "src/entities/item";
 
 @Injectable()
-export class ListCardService {
+export class ChecklistService {
     constructor(
         @Inject(UnitOfWork)
         private readonly unitOfWork: UnitOfWork,
-        @InjectModel(List)
-        private listCardModel: typeof List
+        @InjectModel(Checklist)
+        private checklistModel: typeof Checklist
     )
     {  }
 
-    async addListCard(listCardDto:CreateListCardDto)
+    async addChecklist(checklistDto:CreateChecklistDto)
     {
-        return await (await this.listCardModel.create(listCardDto));
+        return await (await this.checklistModel.create(checklistDto));
     }
 
-    async updateListCard(listCardDto:CreateListCardDto,id)
+    async updateChecklist(itemDto:CreateChecklistDto,id)
     {
          await this.unitOfWork.scope(async transaction => {
-            const listCard = await this.listCardModel.findOne({
+            const checklist = await this.checklistModel.findOne({
               where: { id },
               transaction
             });
-            if (!listCard) {
+            if (!checklist) {
               throw new HttpException(
                 {
                   statusCode: HttpStatus.BAD_REQUEST,
-                  message: 'List Card not exists',
+                  message: ' Label not exists',
                 },
                 HttpStatus.BAD_REQUEST,
               );
             }
-            await this.listCardModel.update(listCardDto, {
+            await this.checklistModel.update(itemDto, {
               where: { id },
               transaction,
             });
@@ -48,31 +48,31 @@ export class ListCardService {
           return true;
     }
 
-    async getAll(listQuery: FilterListDto )
+    async getAll(checklistQuery: FilterChecklistDto )
     {
         var filter :LooseObject = {};
-        if(listQuery.name)
+        if(checklistQuery.name)
         {
-          filter.name = listQuery.name;
+          filter.name = checklistQuery.name;
         }
        
-        const options = { page: listQuery.page, limit: listQuery.limit };
+        const options = { page: checklistQuery.page, limit: checklistQuery.limit };
         const searchOptions = {
           where: filter,
           include: [
             {
-              model: Card,
-              as: 'cards'
+              model: Item,
+              as: 'items'
             },
           ],
         };
         
-        return paginate(this.listCardModel, options,searchOptions);
+        return paginate(this.checklistModel, options,searchOptions);
     }
 
-    async deleteListCard(id: string) {
+    async deleteChecklist(id: string) {
       return this.unitOfWork.scope(async transaction => {
-        await this.listCardModel.destroy({ where: { id }, transaction });
+        await this.checklistModel.destroy({ where: { id }, transaction });
         return true;
       });
     }

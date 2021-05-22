@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common/decorators';
 import { databaseProvider } from './database.provider';
 import { UnitOfWork } from './UnitOfWork';
 

@@ -1,45 +1,44 @@
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { Card } from "src/entities/Card";
-import { List } from "src/entities/List";
 import { LooseObject } from "src/shared/interfaces/loose-object.interface";
 import { paginate } from "src/shared/paginate/paginate";
 import { UnitOfWork } from "../database/UnitOfWork";
-import { FilterListDto } from "./dto/filter-list-card.input";
-import { CreateListCardDto } from "./dto/list-card-create.input";
+import { CreateLabelDto } from "./dto/label-create.input";
+import { FilterLabelDto } from "./dto/filter-label.input";
+import { Label } from "src/entities/label";
 
 @Injectable()
-export class ListCardService {
+export class LabelService {
     constructor(
         @Inject(UnitOfWork)
         private readonly unitOfWork: UnitOfWork,
-        @InjectModel(List)
-        private listCardModel: typeof List
+        @InjectModel(Label)
+        private labelModel: typeof Label
     )
     {  }
 
-    async addListCard(listCardDto:CreateListCardDto)
+    async addLabel(labelDto:CreateLabelDto)
     {
-        return await (await this.listCardModel.create(listCardDto));
+        return await (await this.labelModel.create(labelDto));
     }
 
-    async updateListCard(listCardDto:CreateListCardDto,id)
+    async updateLabel(labelDto:CreateLabelDto,id)
     {
          await this.unitOfWork.scope(async transaction => {
-            const listCard = await this.listCardModel.findOne({
+            const label = await this.labelModel.findOne({
               where: { id },
               transaction
             });
-            if (!listCard) {
+            if (!label) {
               throw new HttpException(
                 {
                   statusCode: HttpStatus.BAD_REQUEST,
-                  message: 'List Card not exists',
+                  message: ' Label not exists',
                 },
                 HttpStatus.BAD_REQUEST,
               );
             }
-            await this.listCardModel.update(listCardDto, {
+            await this.labelModel.update(labelDto, {
               where: { id },
               transaction,
             });
@@ -48,31 +47,25 @@ export class ListCardService {
           return true;
     }
 
-    async getAll(listQuery: FilterListDto )
+    async getAll(labelQuery: FilterLabelDto )
     {
         var filter :LooseObject = {};
-        if(listQuery.name)
+        if(labelQuery.name)
         {
-          filter.name = listQuery.name;
+          filter.name = labelQuery.name;
         }
        
-        const options = { page: listQuery.page, limit: listQuery.limit };
+        const options = { page: labelQuery.page, limit: labelQuery.limit };
         const searchOptions = {
           where: filter,
-          include: [
-            {
-              model: Card,
-              as: 'cards'
-            },
-          ],
         };
         
-        return paginate(this.listCardModel, options,searchOptions);
+        return paginate(this.labelModel, options,searchOptions);
     }
 
-    async deleteListCard(id: string) {
+    async deleteLabel(id: string) {
       return this.unitOfWork.scope(async transaction => {
-        await this.listCardModel.destroy({ where: { id }, transaction });
+        await this.labelModel.destroy({ where: { id }, transaction });
         return true;
       });
     }
