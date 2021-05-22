@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { BoardModule } from './modules/board/board.module';
 import { CardModule } from './modules/card/card.module';
 import { DatabaseModule } from './modules/database/database.module';
+import { LabelModule } from './modules/label/label.module';
 import { ListCardModule } from './modules/list-card/list.module';
 
 @Module({
@@ -14,6 +15,7 @@ import { ListCardModule } from './modules/list-card/list.module';
     BoardModule,
     ListCardModule,
     CardModule,
+    LabelModule,
     ServeStaticModule.forRoot({
       rootPath:join(__dirname,'..','uploads')
     })

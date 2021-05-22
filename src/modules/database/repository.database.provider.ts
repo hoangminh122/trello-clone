@@ -1,5 +1,6 @@
 import { Board } from "src/entities/Board";
 import { Card } from "src/entities/Card";
+import { Label } from "src/entities/label";
 import { List } from "src/entities/List";
 import { User } from "src/entities/User";
 
@@ -21,5 +22,10 @@ export const listRepository = {
 export const cardRepository = {
     provide:'CardRepository',
     useValue:Card
+}
+
+export const labelRepository = {
+    provide:'LabelRepository',
+    useValue:Label
 }
 
