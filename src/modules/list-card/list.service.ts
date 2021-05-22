@@ -49,13 +49,11 @@ export class ListCardService {
 
     async getAll(listQuery: FilterListDto )
     {
-        // var result =  await this.boardModel.findAll({
-        //     order: [
-        //     ['order', 'DESC'],
-        // ]
-        // });
-
         var filter :LooseObject = {};
+        if(listQuery.name)
+        {
+          filter.name = listQuery.name;
+        }
        
         const options = { page: listQuery.page, limit: listQuery.limit };
         const searchOptions = {

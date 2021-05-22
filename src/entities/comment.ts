@@ -18,6 +18,13 @@ export class Comment extends Model {
     })
     comment:string;
 
+    @ForeignKey(() => User)
+    @Column({
+        field: 'user_id',
+        type: DataType.UUID,
+    })
+    authorId!: string;
+    
     @BelongsTo(()=>User,{
         onDelete:'RESTRICT',
         onUpdate:'CASCADE'

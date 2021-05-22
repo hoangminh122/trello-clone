@@ -14,7 +14,7 @@ export class ListCardController {
     { }
 
     @Post('')
-    async createBoard(@Body() listCardDto: ListCardDto){
+    async createBoard(@Body() listCardDto: CreateListCardDto){
        return await this.listCardService.addListCard(listCardDto);
     }
 

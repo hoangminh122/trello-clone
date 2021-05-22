@@ -1,5 +1,8 @@
 import { Column, DataType, HasMany, IsUUID, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
 import { Board } from './Board';
+import { Card } from "./Card";
+import { List } from "./List";
+import { Comment } from './comment';
 
 
 @Table({tableName:'user',timestamps:false})
@@ -37,6 +40,24 @@ export class User extends Model {
         onUpdate:'CASCADE'
     })
     boards:Board[];
+
+    @HasMany(()=> Card,{
+        onDelete:'RESTRICT',
+        onUpdate:'CASCADE'
+    })
+    cards:Card[];
+
+    @HasMany(()=> List,{
+        onDelete:'RESTRICT',
+        onUpdate:'CASCADE'
+    })
+    lists:List[];
+
+    @HasMany(()=> Comment,{
+        onDelete:'RESTRICT',
+        onUpdate:'CASCADE'
+    })
+    comment:Comment[];
 
     //stars
 
