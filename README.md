@@ -37,7 +37,7 @@ $ npm install
 # watch mode
 $ npm run start:dev
 
-#swagger
+# swagger api
 http://localhost:3008/api/
 ## Support
 
