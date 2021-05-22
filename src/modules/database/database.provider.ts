@@ -12,6 +12,7 @@ import { MemberBoard } from 'src/entities/MemberBoard';
 import { Label } from 'src/entities/label';
 import { Item } from './../../entities/item';
 import { Checklist } from './../../entities/checklist';
+import { MemberCard } from 'src/entities/MemberCard';
 
 const namespace = cls.createNamespace('ENROLMENT_APPLICANTS_SERVICE');
 
@@ -78,7 +79,8 @@ export const databaseProvider = {
       Comment,
       Label,
       Item,
-      Checklist
+      Checklist,
+      MemberCard
     ]);
     return sequelize.sync({ force: false });
   },
