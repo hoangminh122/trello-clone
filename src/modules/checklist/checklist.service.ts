@@ -6,6 +6,7 @@ import { UnitOfWork } from "../database/UnitOfWork";
 import { Checklist } from "src/entities/checklist";
 import { CreateChecklistDto } from "./dto/checklist-create.input";
 import { FilterChecklistDto } from "./dto/filter-checklist.input";
+import { Item } from "src/entities/item";
 
 @Injectable()
 export class ChecklistService {
@@ -58,6 +59,12 @@ export class ChecklistService {
         const options = { page: checklistQuery.page, limit: checklistQuery.limit };
         const searchOptions = {
           where: filter,
+          include: [
+            {
+              model: Item,
+              as: 'items'
+            },
+          ],
         };
         
         return paginate(this.checklistModel, options,searchOptions);

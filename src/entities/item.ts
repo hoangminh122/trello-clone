@@ -17,6 +17,25 @@ export class Item extends Model {
     })
     name:string;
 
+    @Column({
+        allowNull:true,
+        type:DataType.STRING,
+    })
+    assign:string;
+
+    @Column({
+        allowNull:true,
+        type:DataType.BOOLEAN,
+        defaultValue:false
+    })
+    isCompleted:boolean;
+
+    @Column({
+        allowNull:true,
+        type:DataType.DATE,
+    })
+    dueDate:Date;
+
     @ForeignKey(() => Checklist)
     @Column({
         field: 'checklist_id',

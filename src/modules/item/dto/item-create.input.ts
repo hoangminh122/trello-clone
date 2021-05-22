@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsOptional, IsString } from "class-validator";
+import { IsDateString, IsOptional, IsString, IsUUID } from "class-validator";
 import { colorLableEnum } from "src/shared/enum/label-color.enum";
 
 export class CreateItemDto{
@@ -7,13 +7,19 @@ export class CreateItemDto{
     @ApiPropertyOptional()
     name:string;
 
-    @ApiProperty({enum:colorLableEnum})
+    @ApiPropertyOptional()
+    @IsDateString()
+    @IsOptional()
+    dueDate:Date;
+
+    @ApiPropertyOptional()
     @IsOptional()
     @IsString()
-    readonly color:colorLableEnum;
+    assign:string;
 
-    // @ApiProperty()
-    // order:number;
+    @ApiProperty()
+    @IsUUID()
+    readonly checklistId:string;
 
     @ApiPropertyOptional()
     createdDate: Date;

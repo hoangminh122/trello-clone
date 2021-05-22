@@ -80,6 +80,6 @@ export const databaseProvider = {
       Item,
       Checklist
     ]);
-    return sequelize.sync({ force: true });
+    return sequelize.sync({ force: false });
   },
 };
