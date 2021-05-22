@@ -5,7 +5,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BoardModule } from './modules/board/board.module';
 import { CardModule } from './modules/card/card.module';
+import { ChecklistModule } from './modules/checklist/checklist.module';
 import { DatabaseModule } from './modules/database/database.module';
+import { ItemModule } from './modules/item/item.module';
 import { LabelModule } from './modules/label/label.module';
 import { ListCardModule } from './modules/list-card/list.module';
 
@@ -16,6 +18,8 @@ import { ListCardModule } from './modules/list-card/list.module';
     ListCardModule,
     CardModule,
     LabelModule,
+    ItemModule,
+    ChecklistModule,
     ServeStaticModule.forRoot({
       rootPath:join(__dirname,'..','uploads')
     })

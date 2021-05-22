@@ -25,11 +25,11 @@ export class CardService {
     async updateCard(cardDto:CreateCardDto,id)
     {
          await this.unitOfWork.scope(async transaction => {
-            const cardDto = await this.cardModel.findOne({
+            const card = await this.cardModel.findOne({
               where: { id },
               transaction
             });
-            if (!cardDto) {
+            if (!card) {
               throw new HttpException(
                 {
                   statusCode: HttpStatus.BAD_REQUEST,

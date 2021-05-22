@@ -1,4 +1,5 @@
-import { Column, DataType, IsUUID, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
+import { Column, DataType, ForeignKey, IsUUID, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
+import { Checklist } from "./checklist";
 
 
 @Table({tableName:'item',timestamps:false})
@@ -15,6 +16,13 @@ export class Item extends Model {
         type:DataType.STRING,
     })
     name:string;
+
+    @ForeignKey(() => Checklist)
+    @Column({
+        field: 'checklist_id',
+        type: DataType.UUID,
+    })
+    checklistId!: string;
 
 
 }

@@ -3,33 +3,33 @@ import { InjectModel } from "@nestjs/sequelize";
 import { LooseObject } from "src/shared/interfaces/loose-object.interface";
 import { paginate } from "src/shared/paginate/paginate";
 import { UnitOfWork } from "../database/UnitOfWork";
-import { CreateLabelDto } from "./dto/label-create.input";
-import { FilterLabelDto } from "./dto/filter-label.input";
-import { Label } from "src/entities/label";
+import { Checklist } from "src/entities/checklist";
+import { CreateChecklistDto } from "./dto/checklist-create.input";
+import { FilterChecklistDto } from "./dto/filter-checklist.input";
 
 @Injectable()
-export class LabelService {
+export class ChecklistService {
     constructor(
         @Inject(UnitOfWork)
         private readonly unitOfWork: UnitOfWork,
-        @InjectModel(Label)
-        private labelModel: typeof Label
+        @InjectModel(Checklist)
+        private checklistModel: typeof Checklist
     )
     {  }
 
-    async addLabel(labelDto:CreateLabelDto)
+    async addChecklist(checklistDto:CreateChecklistDto)
     {
-        return await (await this.labelModel.create(labelDto));
+        return await (await this.checklistModel.create(checklistDto));
     }
 
-    async updateLabel(labelDto:CreateLabelDto,id)
+    async updateChecklist(itemDto:CreateChecklistDto,id)
     {
          await this.unitOfWork.scope(async transaction => {
-            const label = await this.labelModel.findOne({
+            const checklist = await this.checklistModel.findOne({
               where: { id },
               transaction
             });
-            if (!label) {
+            if (!checklist) {
               throw new HttpException(
                 {
                   statusCode: HttpStatus.BAD_REQUEST,
@@ -38,7 +38,7 @@ export class LabelService {
                 HttpStatus.BAD_REQUEST,
               );
             }
-            await this.labelModel.update(labelDto, {
+            await this.checklistModel.update(itemDto, {
               where: { id },
               transaction,
             });
@@ -47,25 +47,25 @@ export class LabelService {
           return true;
     }
 
-    async getAll(labelQuery: FilterLabelDto )
+    async getAll(checklistQuery: FilterChecklistDto )
     {
         var filter :LooseObject = {};
-        if(labelQuery.name)
+        if(checklistQuery.name)
         {
-          filter.name = labelQuery.name;
+          filter.name = checklistQuery.name;
         }
        
-        const options = { page: labelQuery.page, limit: labelQuery.limit };
+        const options = { page: checklistQuery.page, limit: checklistQuery.limit };
         const searchOptions = {
           where: filter,
         };
         
-        return paginate(this.labelModel, options,searchOptions);
+        return paginate(this.checklistModel, options,searchOptions);
     }
 
-    async deleteLabel(id: string) {
+    async deleteChecklist(id: string) {
       return this.unitOfWork.scope(async transaction => {
-        await this.labelModel.destroy({ where: { id }, transaction });
+        await this.checklistModel.destroy({ where: { id }, transaction });
         return true;
       });
     }

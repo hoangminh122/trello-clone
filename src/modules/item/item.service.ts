@@ -3,33 +3,33 @@ import { InjectModel } from "@nestjs/sequelize";
 import { LooseObject } from "src/shared/interfaces/loose-object.interface";
 import { paginate } from "src/shared/paginate/paginate";
 import { UnitOfWork } from "../database/UnitOfWork";
-import { CreateLabelDto } from "./dto/label-create.input";
-import { FilterLabelDto } from "./dto/filter-label.input";
-import { Label } from "src/entities/label";
+import { CreateItemDto } from "./dto/item-create.input";
+import { Item } from '../../entities/item';
+import { FilterItemDto } from "./dto/filter-item.input";
 
 @Injectable()
-export class LabelService {
+export class ItemService {
     constructor(
         @Inject(UnitOfWork)
         private readonly unitOfWork: UnitOfWork,
-        @InjectModel(Label)
-        private labelModel: typeof Label
+        @InjectModel(Item)
+        private itemModel: typeof Item
     )
     {  }
 
-    async addLabel(labelDto:CreateLabelDto)
+    async addItem(itemDto:CreateItemDto)
     {
-        return await (await this.labelModel.create(labelDto));
+        return await (await this.itemModel.create(itemDto));
     }
 
-    async updateLabel(labelDto:CreateLabelDto,id)
+    async updateItem(itemDto:CreateItemDto,id)
     {
          await this.unitOfWork.scope(async transaction => {
-            const label = await this.labelModel.findOne({
+            const item = await this.itemModel.findOne({
               where: { id },
               transaction
             });
-            if (!label) {
+            if (!item) {
               throw new HttpException(
                 {
                   statusCode: HttpStatus.BAD_REQUEST,
@@ -38,7 +38,7 @@ export class LabelService {
                 HttpStatus.BAD_REQUEST,
               );
             }
-            await this.labelModel.update(labelDto, {
+            await this.itemModel.update(itemDto, {
               where: { id },
               transaction,
             });
@@ -47,25 +47,25 @@ export class LabelService {
           return true;
     }
 
-    async getAll(labelQuery: FilterLabelDto )
+    async getAll(itemQuery: FilterItemDto )
     {
         var filter :LooseObject = {};
-        if(labelQuery.name)
+        if(itemQuery.name)
         {
-          filter.name = labelQuery.name;
+          filter.name = itemQuery.name;
         }
        
-        const options = { page: labelQuery.page, limit: labelQuery.limit };
+        const options = { page: itemQuery.page, limit: itemQuery.limit };
         const searchOptions = {
           where: filter,
         };
         
-        return paginate(this.labelModel, options,searchOptions);
+        return paginate(this.itemModel, options,searchOptions);
     }
 
-    async deleteLabel(id: string) {
+    async deleteItem(id: string) {
       return this.unitOfWork.scope(async transaction => {
-        await this.labelModel.destroy({ where: { id }, transaction });
+        await this.itemModel.destroy({ where: { id }, transaction });
         return true;
       });
     }
