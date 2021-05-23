@@ -1,4 +1,4 @@
-import { Column, DataType, HasMany, IsUUID, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
+import { Column, CreatedAt, DataType, DeletedAt, HasMany, IsUUID, Model, PrimaryKey, Sequelize, Table, UpdatedAt } from "sequelize-typescript";
 import { Board } from './Board';
 import { Card } from "./Card";
 import { List } from "./List";
@@ -14,6 +14,18 @@ export class User extends Model {
         defaultValue:Sequelize.literal('uuid_generate_v4()')
     })
     id!:string;
+
+    @Column({
+        allowNull: false,
+        field: 'first_name'
+      })
+      firstName: string;
+    
+      @Column({
+        allowNull: false,
+        field: 'last_name'
+      })
+      lastName: string;
 
     @Column({
         allowNull:false,
@@ -60,5 +72,17 @@ export class User extends Model {
     comment:Comment[];
 
     //stars
+
+    @CreatedAt
+    @Column({ field: 'created_at', type: DataType.DATE })
+    public createdAt: Date;
+
+    @UpdatedAt
+    @Column({ field: 'updated_at', type: DataType.DATE })
+    public updatedAt: Date;
+
+    @DeletedAt
+    @Column({ field: 'daleted_at', type: DataType.DATE })
+    public deletedAt: Date;
 
 }

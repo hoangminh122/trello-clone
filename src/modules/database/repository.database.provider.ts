@@ -10,7 +10,7 @@ import { User } from "src/entities/User";
 import { Item } from './../../entities/item';
 
 export const userRepository = {
-    provide:'userRepository',
+    provide:'UserRepository',
     useValue:User
 }
 
@@ -58,5 +58,7 @@ export const filesRepository = {
     provide:'FilesRepository',
     useValue:Files
 }
+
+
 
 
