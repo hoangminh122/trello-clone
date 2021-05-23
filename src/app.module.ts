@@ -3,6 +3,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './modules/auth/auth.module';
 import { BoardModule } from './modules/board/board.module';
 import { CardModule } from './modules/card/card.module';
 import { ChecklistModule } from './modules/checklist/checklist.module';
@@ -11,6 +12,7 @@ import { ItemModule } from './modules/item/item.module';
 import { LabelModule } from './modules/label/label.module';
 import { ListCardModule } from './modules/list-card/list.module';
 import { MemberCardModule } from './modules/member-card/member-card.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { MemberCardModule } from './modules/member-card/member-card.module';
     ItemModule,
     ChecklistModule,
     MemberCardModule,
+    UserModule,
+    AuthModule,
     ServeStaticModule.forRoot({
       rootPath:join(__dirname,'..','uploads')
     })
