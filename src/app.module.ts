@@ -13,10 +13,12 @@ import { LabelModule } from './modules/label/label.module';
 import { ListCardModule } from './modules/list-card/list.module';
 import { MemberCardModule } from './modules/member-card/member-card.module';
 import { UserModule } from './modules/user/user.module';
+import { UploadModule } from './modules/upload/upload.module';
 
 @Module({
   imports: [
     DatabaseModule,
+    UploadModule,
     BoardModule,
     ListCardModule,
     CardModule,
