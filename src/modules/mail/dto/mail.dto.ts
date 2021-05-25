@@ -15,7 +15,7 @@ export class EmailScheduleDto {
     @ApiPropertyOptional()
     @IsString()
     @IsNotEmpty()
-    content :string;
+    code :string;
 
     @ApiPropertyOptional()
     @IsDateString()
