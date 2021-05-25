@@ -1,7 +1,7 @@
 import { ApiPropertyOptional } from "@nestjs/swagger";
 import { IsDateString, IsEmail, IsNotEmpty, IsString } from "class-validator";
 
-export class EmailScheduleDto {
+export default class EmailScheduleDto {
 
     @ApiPropertyOptional()
     @IsEmail()
@@ -12,12 +12,12 @@ export class EmailScheduleDto {
     @IsNotEmpty()
     subject:string;
 
-    @ApiPropertyOptional()
-    @IsString()
-    @IsNotEmpty()
-    code :string;
+    // @ApiPropertyOptional()
+    // @IsString()
+    // @IsNotEmpty()
+    // code :string;
 
     @ApiPropertyOptional()
     @IsDateString()
-    date:string;
+    date:Date;
 }

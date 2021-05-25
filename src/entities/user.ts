@@ -25,7 +25,7 @@ export class User extends Model {
         allowNull: false,
         field: 'last_name'
       })
-      lastName: string;
+    lastName: string;
 
     @Column({
         allowNull:false,
@@ -44,6 +44,13 @@ export class User extends Model {
         type:DataType.STRING
     })
     password:string;
+
+    @Column({
+        allowNull:true,
+        defaultValue:false,
+        type:DataType.BOOLEAN
+    })
+    isVerify:boolean;
     
     //role:string;
 

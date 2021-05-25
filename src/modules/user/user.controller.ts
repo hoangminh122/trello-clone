@@ -4,6 +4,7 @@ import { ApiTags,ApiBody, ApiBearerAuth, ApiOperation } from "@nestjs/swagger";
 import { UserDTO } from "./dto/user.dto";
 import { JwtAuthGuard } from "../auth/jwt/jwt-auth.guard";
 import { User } from "src/entities/User";
+import { VerifyCodeDTO } from "./dto/verify-code.dto";
 
 @ApiTags('user')
 @Controller('user')
@@ -14,8 +15,8 @@ export class UserController {
     ) { }
 
     @Get()
-    @ApiBearerAuth()
-    @UseGuards(JwtAuthGuard)
+    // @ApiBearerAuth()
+    // @UseGuards(JwtAuthGuard)
     showAllUser() {
         return this.userService.showAll();
     }
@@ -27,6 +28,18 @@ export class UserController {
         return this.userService.findById(id);
     }
 
+    @Post('mail/send-verify/:id')
+    async sendVerifyMail(@Param('id') id: string){
+        return await this.userService.sendVerifyMail(id);
+    }
+
+    @Post('mail/verify/:id')
+    async verifyUser(@Param('id') id: string,@Body() verifyCodeDTO :VerifyCodeDTO) {
+        console.log("code"+verifyCodeDTO.code);
+        return await this.userService.verifyUser(id,verifyCodeDTO.code);
+    }
+
+    
     @Post()
     @ApiOperation({ summary: 'create user' })
     async createUser(@Body() data: UserDTO) {
