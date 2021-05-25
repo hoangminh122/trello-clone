@@ -1,12 +1,12 @@
-import { HttpException, HttpStatus, Inject, Injectable, Render, Res } from "@nestjs/common";
+import { CACHE_MANAGER, HttpException, HttpStatus, Inject, Injectable, Render, Res } from "@nestjs/common";
 import { createTransport } from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
-import { HttpExceptionFilter } from "src/shared/filters/http-exception-filter";
 import { UnitOfWork } from "../database/UnitOfWork";
-import { EmailScheduleDto } from "./dto/mail.dto";
 import { Response } from 'express';
 import * as fs from 'fs-extra';
 import { HandleBarService } from "src/shared/services/handlebar.service";
+import { RedisCacheService } from "../redis/redis.service";
+import EmailScheduleDto from "./dto/mail.dto";
 
 @Injectable()
 export class MailService {
@@ -17,6 +17,7 @@ export class MailService {
         private readonly unitOfWork: UnitOfWork,
         @Inject(HandleBarService)
         private handleBarService: HandleBarService,
+        private redisService: RedisCacheService,
     )
     {
         this.nodemailerTransport = createTransport({
@@ -28,13 +29,17 @@ export class MailService {
         });
     }
     
-    async sendMail(emailDto: EmailScheduleDto){
+    async sendMail(emailDto: EmailScheduleDto,uuid:string){
+        //set key verify redis
+        let random = Math.floor(Math.random() * (10000 - 1) + 1);
+
+        await this.redisService.set({key:uuid,value:random})
 
         let mailOptions = {
             from: process.env.EMAIL_USER, 
             to: emailDto.recipient,
             subject: emailDto.subject,
-            html: await this.export(emailDto.code)
+            html: await this.export(random.toString())
         }
         try {
             await this.nodemailerTransport.sendMail(mailOptions);
