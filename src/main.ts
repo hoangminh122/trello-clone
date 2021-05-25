@@ -4,12 +4,20 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { config } from 'dotenv';
 import { DispatchError } from './shared/filters/dispatch-error';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 config();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  //const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(
+    AppModule,
+  );
   //filter exception
   app.useGlobalFilters(new DispatchError())
+
+  //config handerbar
+  app.useStaticAssets(join(__dirname, '..', 'public'));
 
   //swagger config
   const config = new DocumentBuilder()

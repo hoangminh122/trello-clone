@@ -14,6 +14,7 @@ import { ListCardModule } from './modules/list-card/list.module';
 import { MemberCardModule } from './modules/member-card/member-card.module';
 import { UserModule } from './modules/user/user.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { MailModule } from './modules/mail/mail.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { UploadModule } from './modules/upload/upload.module';
     MemberCardModule,
     UserModule,
     AuthModule,
+    MailModule,
     ServeStaticModule.forRoot({
       rootPath:join(__dirname,'..','uploads')
     })
