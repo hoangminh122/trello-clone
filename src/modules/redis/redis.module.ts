@@ -1,20 +1,17 @@
 import { CacheModule } from "@nestjs/common";
 import { Module } from "@nestjs/common/decorators";
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConfigService } from "@nestjs/config";
 import { ScheduleModule } from "@nestjs/schedule";
 import { HandleBarService } from "src/shared/services/handlebar.service";
 import { DatabaseModule } from "../database/database.module";
-import { RedisCacheModule } from "../redis/redis.module";
-import { RedisCacheService } from "../redis/redis.service";
-import { MailController } from "./mail.controller";
-import { MailService } from "./mail.service";
+import { RedisCacheController } from "./redis.controller";
+import { RedisCacheService } from "./redis.service";
 import * as redisStore from 'cache-manager-redis-store';
 
 @Module({
     imports:[
         DatabaseModule,
         ScheduleModule.forRoot(),
-        RedisCacheModule,
         CacheModule.registerAsync({
             imports:[],
             inject:[],
@@ -26,14 +23,10 @@ import * as redisStore from 'cache-manager-redis-store';
             })
         })
     ],
-    controllers:[MailController],
-    providers:[
-        MailService,
-        HandleBarService,
-        RedisCacheService
-    ],
-    exports:[MailModule]
+    controllers:[RedisCacheController],
+    providers:[RedisCacheService],
+    exports:[RedisCacheModule]
 })
-export class MailModule {
+export class RedisCacheModule {
 
 }

@@ -15,6 +15,7 @@ import { MemberCardModule } from './modules/member-card/member-card.module';
 import { UserModule } from './modules/user/user.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { MailModule } from './modules/mail/mail.module';
+import { RedisCacheModule } from './modules/redis/redis.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { MailModule } from './modules/mail/mail.module';
     UserModule,
     AuthModule,
     MailModule,
+    RedisCacheModule,
     ServeStaticModule.forRoot({
       rootPath:join(__dirname,'..','uploads')
     })
