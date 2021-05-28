@@ -2,7 +2,7 @@ import { Column, CreatedAt, DataType, DeletedAt, HasMany, IsUUID, Model, Primary
 import { Board } from './Board';
 import { Card } from "./Card";
 import { List } from "./List";
-import { Comment } from './comment';
+import { Comment } from './Comment';
 
 
 @Table({tableName:'user',timestamps:false})

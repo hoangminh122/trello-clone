@@ -4,7 +4,7 @@ import { LooseObject } from "src/shared/interfaces/loose-object.interface";
 import { paginate } from "src/shared/paginate/paginate";
 import { UnitOfWork } from "../database/UnitOfWork";
 import { CreateItemDto } from "./dto/item-create.input";
-import { Item } from '../../entities/item';
+import { Item } from '../../entities/Item';
 import { FilterItemDto } from "./dto/filter-item.input";
 
 @Injectable()

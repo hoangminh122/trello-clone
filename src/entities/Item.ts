@@ -1,5 +1,5 @@
 import { Column, DataType, ForeignKey, IsUUID, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
-import { Checklist } from "./checklist";
+import { Checklist } from "./Checklist";
 
 
 @Table({tableName:'item',timestamps:false})

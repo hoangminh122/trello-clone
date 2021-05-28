@@ -1,5 +1,5 @@
 import { Injectable, HttpStatus, HttpException, Inject } from "@nestjs/common";
-import { Files } from "src/entities/file";
+import { Files } from "src/entities/File";
 import { idFile } from "./config";
 
 @Injectable()

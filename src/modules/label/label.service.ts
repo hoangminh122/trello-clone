@@ -5,7 +5,7 @@ import { paginate } from "src/shared/paginate/paginate";
 import { UnitOfWork } from "../database/UnitOfWork";
 import { CreateLabelDto } from "./dto/label-create.input";
 import { FilterLabelDto } from "./dto/filter-label.input";
-import { Label } from "src/entities/label";
+import { Label } from "src/entities/Label";
 
 @Injectable()
 export class LabelService {

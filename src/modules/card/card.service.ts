@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { Card } from "src/entities/Card";
-import { Checklist } from "src/entities/checklist";
-import { Label } from "src/entities/label";
+import { Checklist } from "src/entities/Checklist";
+import { Label } from "src/entities/Label";
 import { MemberBoard } from "src/entities/MemberBoard";
 import { MemberCard } from "src/entities/MemberCard";
 import { LooseObject } from "src/shared/interfaces/loose-object.interface";

@@ -3,10 +3,10 @@ import { InjectModel } from "@nestjs/sequelize";
 import { LooseObject } from "src/shared/interfaces/loose-object.interface";
 import { paginate } from "src/shared/paginate/paginate";
 import { UnitOfWork } from "../database/UnitOfWork";
-import { Checklist } from "src/entities/checklist";
+import { Checklist } from "src/entities/Checklist";
 import { CreateChecklistDto } from "./dto/checklist-create.input";
 import { FilterChecklistDto } from "./dto/filter-checklist.input";
-import { Item } from "src/entities/item";
+import { Item } from "src/entities/Item";
 
 @Injectable()
 export class ChecklistService {

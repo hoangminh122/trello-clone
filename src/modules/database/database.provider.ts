@@ -9,11 +9,11 @@ import { Card } from '../../entities/Card';
 import { List } from '../../entities/List';
 import { Comment } from '../../entities/Comment';
 import { MemberBoard } from 'src/entities/MemberBoard';
-import { Label } from 'src/entities/label';
-import { Item } from './../../entities/item';
-import { Checklist } from './../../entities/checklist';
+import { Label } from 'src/entities/Label';
+import { Item } from './../../entities/Item';
+import { Checklist } from './../../entities/Checklist';
 import { MemberCard } from 'src/entities/MemberCard';
-import { Files } from 'src/entities/file';
+import { Files } from 'src/entities/File';
 
 const namespace = cls.createNamespace('ENROLMENT_APPLICANTS_SERVICE');
 
@@ -84,6 +84,6 @@ export const databaseProvider = {
       MemberCard,
       Files
     ]);
-    return sequelize.sync({ force: false });
+    return sequelize.sync({ force: true });
   },
 };

@@ -1,6 +1,6 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, IsUUID, Model, PrimaryKey, Sequelize, Table } from "sequelize-typescript";
 import { List } from "./List";
-import { Comment } from './comment';
+import { Comment } from './Comment';
 import { User } from "./User";
 
 
