@@ -1,5 +1,5 @@
 import { Module, UploadedFile, forwardRef } from "@nestjs/common";
-import { Files } from "src/entities/file";
+import { Files } from "src/entities/File";
 import { UploadController } from "./upload.controller";
 import { UploadService } from "./upload.service";
 
