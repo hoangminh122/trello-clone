@@ -1,13 +1,13 @@
 import { Board } from "src/entities/Board";
 import { Card } from "src/entities/Card";
-import { Checklist } from "src/entities/checklist";
-import { Files } from "src/entities/file";
-import { Label } from "src/entities/label";
+import { Checklist } from "src/entities/Checklist";
+import { Files } from "src/entities/File";
+import { Label } from "src/entities/Label";
 import { List } from "src/entities/List";
 import { MemberBoard } from "src/entities/MemberBoard";
 import { MemberCard } from "src/entities/MemberCard";
 import { User } from "src/entities/User";
-import { Item } from './../../entities/item';
+import { Item } from './../../entities/Item';
 
 export const userRepository = {
     provide:'UserRepository',
